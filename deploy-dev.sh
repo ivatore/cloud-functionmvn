@@ -8,13 +8,13 @@ FUNCTION_NAME=func-jumpstart-events-streaming-processor
 ENTRY_POINT=com.jumpstart.PubSubMessageHandler
 RUNTIME=java17
 TOPIC=tp-jumpstart-events-receiver-streaming
-MEMORY=512MB
+MEMORY=2GB
 TIMEOUT=60s
 REGION=us-central1
 SERVICE_ACCOUNT=sa-jumpstart-events-streaming@gs-mx-sandboxanalitica-prod.iam.gserviceaccount.com
 
 # === VARIABLES DE ENTORNO ===
-ENV_VARS="BUCKET_NAME=jumpstart_events_raw,SATELITES_STATUS=OFF"
+ENV_VARS="BUCKET_NAME=jumpstart_events_raw,SATELITES_STATUS=vertex-clevertap"
 
 # === DESPLIEGUE ===
 echo "Desplegando función $FUNCTION_NAME..."

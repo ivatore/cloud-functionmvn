@@ -1,5 +1,7 @@
 package com.jumpstart.service;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -7,15 +9,18 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Map;
 
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.jumpstart.config.AccederSecretGCP;
 import com.jumpstart.entity.enums.CamposJson;
 import com.jumpstart.service.payload.PayloadClaverTap;
+import com.jumpstart.utils.JsonUtilsEvent;
 
 @Service
 public class CleverTapService {
@@ -31,16 +36,24 @@ public class CleverTapService {
 	private final ObjectMapper mapper = new ObjectMapper();
 	private final PayloadClaverTap payloadClaverTap;
 
-	public CleverTapService(PayloadClaverTap payloadClaverTap) {
+	private final JsonUtilsEvent jsonUtilsEvent;
+
+	public CleverTapService(PayloadClaverTap payloadClaverTap, JsonUtilsEvent jsonUtilsEvent) {
 		this.payloadClaverTap = payloadClaverTap;
+		this.jsonUtilsEvent = jsonUtilsEvent;
 	}
 
 	public String enviarEvento(JsonObject event) {
 		String payload = "";
 		try {
+			JsonObject usuario = event.getAsJsonObject(CamposJson.USUARIO);
 
 			String nombreEvento = event.get(CamposJson.EVENTO).getAsJsonArray().get(0).getAsJsonObject().get("nombre")
 					.getAsString();
+
+			String idevento = jsonUtilsEvent.obtenerSiExiste(usuario, "icu")
+					.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "sicu").orElse("NA"));
+
 			if (nombreEvento.equals("purchase")) {
 				payload = payloadClaverTap.construirPayloadChargedEventCleverTap(event);
 			} else {
@@ -53,11 +66,13 @@ public class CleverTapService {
 
 			HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-			log.info("CleverTap response: {}" + response.body());
+			log.info("Payload Clevertap---> {}" + payload);
+			log.info("CleverTap response: {}" + idevento + response.body());
 			return payload;
 
 		} catch (Exception e) {
 			log.error("Error enviando evento a CleverTap" + e.getMessage());
+			e.printStackTrace();
 			return payload;
 		}
 	}
@@ -88,6 +103,20 @@ public class CleverTapService {
 		}
 
 		return payloadsend;
+	}
+
+	public static void main(String[] args) throws Exception {
+//		InputStream is = new FileInputStream("hola-mundo.json");
+//		InputStream is = new FileInputStream("clever-no-p.json");
+		InputStream is = new FileInputStream("add_icu.json");
+		
+		
+		String jsonTxt = IOUtils.toString(is, "UTF-8");
+		CleverTapService obj = new CleverTapService(new PayloadClaverTap(new JsonUtilsEvent()), new JsonUtilsEvent());
+		JsonObject event = JsonParser.parseString(jsonTxt).getAsJsonObject();
+		obj.enviarEvento(event);
+
+		
 	}
 
 }

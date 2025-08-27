@@ -48,8 +48,8 @@ public class VertexUserEventFactory {
 		JsonObject parametros = evento.getAsJsonObject(CamposJson.EVENTOPARAMETRO);
 
 		String eventType = nombreEvento;
-		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "icu")
-				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "sicu").orElse("NA"));
+		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "sicu")
+				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "icu").orElse("NA"));
 		Timestamp eventTime = parseTimestamp(
 				jsonUtilsEvent.obtenerSiExiste(evento, FECHAHORAREGIST).orElse(Instant.now().toString()));
 		List<String> experimentIds = new ArrayList<>();
@@ -81,8 +81,8 @@ public class VertexUserEventFactory {
 		JsonObject parametros = evento.getAsJsonObject(CamposJson.EVENTOPARAMETRO);
 
 		String eventType = nombreEvento;
-		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "icu")
-				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "sicu").orElse("NA"));
+		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "sicu")
+				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "icu").orElse("NA"));
 		Timestamp eventTime = parseTimestamp(
 				jsonUtilsEvent.obtenerSiExiste(evento, FECHAHORAREGIST).orElse(Instant.now().toString()));
 		List<String> experimentIds = new ArrayList<>();
@@ -108,8 +108,8 @@ public class VertexUserEventFactory {
 		JsonObject evento = json.getAsJsonArray(CamposJson.EVENTO).get(0).getAsJsonObject();
 
 		String eventType = nombreEvento;
-		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "icu")
-				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "sicu").orElse("NA"));
+		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "sicu")
+				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "icu").orElse("NA"));
 		Timestamp eventTime = parseTimestamp(
 				jsonUtilsEvent.obtenerSiExiste(evento, FECHAHORAREGIST).orElse(Instant.now().toString()));
 		String userId = visitorId;
@@ -129,8 +129,8 @@ public class VertexUserEventFactory {
 
 		String eventType = nombreEvento;
 
-		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "icu")
-				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "sicu").orElse("NA"));
+		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "sicu")
+				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "icu").orElse("NA"));
 		Timestamp eventTime = parseTimestamp(
 				jsonUtilsEvent.obtenerSiExiste(evento, FECHAHORAREGIST).orElse(Instant.now().toString()));
 		List<String> experimentIds = new ArrayList<>();
@@ -165,8 +165,8 @@ public class VertexUserEventFactory {
 
 		String eventType = nombreEvento;
 
-		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "icu")
-				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "sicu").orElse("NA"));
+		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "sicu")
+				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "icu").orElse("NA"));
 		Timestamp eventTime = parseTimestamp(
 				jsonUtilsEvent.obtenerSiExiste(evento, FECHAHORAREGIST).orElse(Instant.now().toString()));
 		List<String> experimentIds = new ArrayList<>();
@@ -203,8 +203,8 @@ public class VertexUserEventFactory {
 
 		String eventType = nombreEvento;
 
-		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "icu")
-				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "sicu").orElse("NA"));
+		String visitorId = jsonUtilsEvent.obtenerSiExiste(usuario, "sicu")
+				.orElse(jsonUtilsEvent.obtenerSiExiste(usuario, "icu").orElse("NA"));
 		Timestamp eventTime = parseTimestamp(
 				jsonUtilsEvent.obtenerSiExiste(evento, FECHAHORAREGIST).orElse(Instant.now().toString()));
 		List<String> experimentIds = new ArrayList<>();
