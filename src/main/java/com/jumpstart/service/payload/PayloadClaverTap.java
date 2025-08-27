@@ -29,11 +29,22 @@ public class PayloadClaverTap {
 	}
 
 	public String construirPayloadChargedEventCleverTap(JsonObject event) {
-//		JsonObject usuario = event.getAsJsonObject("usuario");
+		JsonObject usuario = event.getAsJsonObject("usuario");
 		JsonObject evento = event.getAsJsonArray(CamposJson.EVENTO).get(0).getAsJsonObject();
 		JsonObject parametros = evento.getAsJsonObject(CamposJson.EVENTOPARAMETRO);
 		JsonObject headers = event.getAsJsonObject(CamposJson.HEADERS);
 		JsonArray productos = evento.getAsJsonArray(CamposJson.EVENTOPRODUCTO);
+
+		boolean hasIcu = jsonvalida.validarCampoExistente(event, CamposJson.USUARIO, "icu");
+		boolean hasSicu = jsonvalida.validarCampoExistente(event, CamposJson.USUARIO, "sicu");
+		String userId = "";
+
+		if (hasIcu) {
+			userId = jsonvalida.obtenerSiExiste(event, CamposJson.USUARIO, "icu").orElse("");
+		}
+		if (hasSicu && !hasIcu) {
+			userId = jsonvalida.obtenerSiExiste(event, CamposJson.USUARIO, "sicu").orElse("");
+		}
 
 		JsonObject evtData = new JsonObject();
 
@@ -49,19 +60,19 @@ public class PayloadClaverTap {
 		evtData.addProperty("x_estado_red", headers.get("x-estado-red").getAsString());
 
 		// Valores principales
-		evtData.addProperty("Amount", parametros.get(MONTOTOTAL).getAsBigDecimal());
-		evtData.addProperty("Currency", parametros.get("moneda").getAsString());
-		evtData.addProperty("Payment mode", parametros.get("formaPago").getAsString());
-		evtData.addProperty("Delivery By", parametros.get("tipoEnvio").getAsString());
-		evtData.addProperty("Store Name", parametros.get("nombreTienda").getAsString());
-		evtData.addProperty("Coupon", parametros.get("cupon").getAsString());
-		evtData.addProperty("Discount Amount", parametros.get("montoDescuento").getAsString());
-		evtData.addProperty("Tax Amount", parametros.get("montoImpuestos").getAsString());
-		evtData.addProperty("Points Redeemed", parametros.get("puntosCanjeados").getAsString());
+		evtData.addProperty("montoTotal", parametros.get(MONTOTOTAL).getAsBigDecimal());
+		evtData.addProperty("moneda", parametros.get("moneda").getAsString());
+		evtData.addProperty("formaPago", parametros.get("formaPago").getAsString());
+		evtData.addProperty("tipoEnvio", parametros.get("tipoEnvio").getAsString());
+		evtData.addProperty("nombreTienda", parametros.get("nombreTienda").getAsString());
+		evtData.addProperty("cupon", parametros.get("cupon").getAsString());
+		evtData.addProperty("montoDescuento", parametros.get("montoDescuento").getAsString());
+		evtData.addProperty("montoImpuestos", parametros.get("montoImpuestos").getAsString());
+		evtData.addProperty("puntosCanjeados", parametros.get("puntosCanjeados").getAsString());
 
 		// Detalle si existe
 		if (evento.has("detalle")) {
-			evtData.add("Detalle", evento.get("detalle"));
+			evtData.add("detalle", evento.get("detalle"));
 		}
 
 		// Productos
@@ -69,18 +80,18 @@ public class PayloadClaverTap {
 		for (JsonElement prodElem : productos) {
 			JsonObject prod = prodElem.getAsJsonObject();
 			JsonObject item = new JsonObject();
-			item.addProperty("Category", prod.get("categoria").getAsString());
-			item.addProperty("Product name", prod.get("nombre").getAsString());
-			item.addProperty("Quantity", prod.get("cantidad").getAsInt());
-			item.addProperty("Price", prod.get("precio").getAsBigDecimal());
-			item.addProperty("Brand", prod.get("marca").getAsString());
+			item.addProperty("categoria", prod.get("categoria").getAsString());
+			item.addProperty("nombre", prod.get("nombre").getAsString());
+			item.addProperty("cantidad", prod.get("cantidad").getAsInt());
+			item.addProperty("precio", prod.get("precio").getAsBigDecimal());
+			item.addProperty("marca", prod.get("marca").getAsString());
 			itemsArr.add(item);
 		}
 		evtData.add("Items", itemsArr);
 
 		// Evento general
 		JsonObject eventoObj = new JsonObject();
-		eventoObj.addProperty("objectId", evento.get("idClevertap").getAsString());
+		eventoObj.addProperty("identity", userId);
 		eventoObj.addProperty("type", "event");
 		eventoObj.addProperty("evtName",
 				homologacionNombre(evento.get("nombre").getAsString(), evento.get("aliasClevertap").getAsString()));
@@ -97,14 +108,25 @@ public class PayloadClaverTap {
 	}
 
 	public String construirPayloadGeneralEventCleverTap(JsonObject event) {
-//		JsonObject usuario = event.getAsJsonObject(CamposJson.USUARIO);
+		JsonObject usuario = event.getAsJsonObject(CamposJson.USUARIO);
 		JsonObject headers = event.getAsJsonObject(CamposJson.HEADERS);
 		JsonObject evento = event.getAsJsonArray(CamposJson.EVENTO).get(0).getAsJsonObject();
+
+		boolean hasIcu = jsonvalida.validarCampoExistente(event, CamposJson.USUARIO, "icu");
+		boolean hasSicu = jsonvalida.validarCampoExistente(event, CamposJson.USUARIO, "sicu");
+		String userId = "";
+
+		if (hasIcu) {
+			userId = jsonvalida.obtenerSiExiste(event, CamposJson.USUARIO, "icu").orElse("");
+		}
+		if (hasSicu && !hasIcu) {
+			userId = jsonvalida.obtenerSiExiste(event, CamposJson.USUARIO, "sicu").orElse("");
+		}
 
 		JsonObject evtData = new JsonObject();
 
 		// Campos parametrizados opcionales
-		Map<String, String> parametrosOpcionales = Map.of("Amount", MONTOTOTAL, "Currency", "moneda", "formaPago",
+		Map<String, String> parametrosOpcionales = Map.of("montoTotal", MONTOTOTAL, "moneda", "moneda", "formaPago",
 				"formaPago", "skuGrupo", "skuGrupo", "tipoLogeo", "tipoLogeo", "estatusTransaccion",
 				"estatusTransaccion", "nombreTienda", "nombreTienda", MONTOTOTAL, MONTOTOTAL, "tipoEnvio", "tipoEnvio");
 
@@ -144,13 +166,13 @@ public class PayloadClaverTap {
 		// Fuente
 		if (evento.has(CamposJson.EVENTOFUENTE)) {
 			JsonObject fuente = evento.getAsJsonObject(CamposJson.EVENTOFUENTE);
-			addPropertyIfPresent(evtData, fuente, "nombre", "nombreFuente");
+			addPropertyIfPresent(evtData, fuente, "nombreFuente", "nombreFuente");
 			addPropertyIfPresent(evtData, fuente, "url");
 		}
 
 		// Construcción final
 		JsonObject eventoObj = new JsonObject();
-		eventoObj.addProperty("objectId", evento.get("idClevertap").getAsString());
+		eventoObj.addProperty("identity", userId);
 		eventoObj.addProperty("type", "event");
 		eventoObj.addProperty("evtName", evento.get("nombre").getAsString());
 		eventoObj.add("evtData", evtData);
@@ -181,7 +203,7 @@ public class PayloadClaverTap {
 		List<Object> dArray = new ArrayList<>();
 
 		Map<String, Object> item = new HashMap<>();
-		jsonvalida.validarCampoExistente(event, "");
+//		jsonvalida.validarCampoExistente(event, "");
 		boolean hasIcu = jsonvalida.validarCampoExistente(event, CamposJson.USUARIO, "icu");
 		boolean hasSicu = jsonvalida.validarCampoExistente(event, CamposJson.USUARIO, "sicu");
 		String userId = "";
@@ -189,11 +211,11 @@ public class PayloadClaverTap {
 		if (hasIcu) {
 			userId = jsonvalida.obtenerSiExiste(event, CamposJson.USUARIO, "icu").orElse("");
 		}
-		if (hasSicu) {
+		if (hasSicu && !hasIcu) {
 			userId = jsonvalida.obtenerSiExiste(event, CamposJson.USUARIO, "sicu").orElse("");
 		}
 
-		item.put("objectId", userId);
+		item.put("identity", userId);
 		item.put("type", "profile");
 
 		Map<String, Object> profileData = new HashMap<>();

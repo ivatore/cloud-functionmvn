@@ -35,7 +35,7 @@ public class PubSubMessageHandler implements BackgroundFunction<PubSubMessageHan
 		ParquetPayloadService parquetPayloadService = new ParquetPayloadService();
 		VertexUserEventFactory eventFactory = new VertexUserEventFactory(jsonUtilsEvent);
 		VertexService vertexService = new VertexService();
-		CleverTapService cleverTapService = new CleverTapService(payloadClaverTap);
+		CleverTapService cleverTapService = new CleverTapService(payloadClaverTap,jsonUtilsEvent);
 		PayloadAppFlyer appFlyer = new PayloadAppFlyer(jsonUtilsEvent, jsonToJsonlUtils);
 		AppsFlyerService appsFlyerService = new AppsFlyerService(appFlyer);
 

@@ -1,0 +1,77 @@
+{
+  "headers" : {
+    "x-sistema-operativo" : "Android REL",
+    "x-version-aplicacion" : "3.1.12.dev.150825-3155",
+    "x-modelo" : "moto g(60)",
+    "x-version-sistema-operativo" : "Android 12",
+    "x-id-peticion" : "3485fb36e5aa1007",
+    "x-idioma" : "es",
+    "x-zona-horaria" : "America/Mexico_City",
+    "x-estado-red" : "WiFi",
+    "x-id-emisor" : "123467",
+    "x-nombre-aplicacion" : "Banco_Azteca_DEV",
+    "x-resolucion-pantalla" : "2460x1080"
+  },
+  "usuario" : {
+    "icu" : "59e629d75f2143c19904b2b89d2d9b67",
+    "sicu" : "b90b16575d214f43970d260b71a3022b",
+    "idExterno" : ""
+  },
+  "eventos" : [
+    {
+      "id" : "f4b4a66cf42c4b00827e6f50b5328a9f",
+      "nombre" : "add_payment_info",
+      "parametros" : {
+        "nombrePantalla" : "resumen",
+        "montoTotal" : "1999.0",
+        "codigoBin" : "000000",
+        "puntosTotales" : "9995.0",
+        "esquemaPagos" : "$38 durante 102 semanas ",
+        "idFormaPago" : "202",
+        "formaPago" : "baz_credito",
+        "idCarrito" : "91851f25680c4037a16dcfab5c7548e2",
+        "flujo" : "elektra",
+        "seccion" : "marketplace",
+        "canal" : "shopinbaz",
+        "renovable" : "false"
+      },
+      "idClevertap" : "__5cd7088e144549b7a7f0a4305949ef17",
+      "idAppsFlyer" : "59e629d75f2143c19904b2b89d2d9b67",
+      "idSesion" : "7fc287bc222e4b74b61b55f81c350cf1",
+      "ubicacion" : {
+        "latitud" : 19.018794700000001,
+        "pais" : "México",
+        "codigoPostal" : "56977",
+        "longitud" : -98.693068499999995,
+        "municipio" : "N/A"
+      },
+      "aliasAppsFlyer" : "NA",
+      "fechaHoraRegistro" : "2025-08-20T19:29:52Z",
+      "aliasClevertap" : "add_payment_info",
+      "registroPlataforma" : [
+        "clevertap"
+      ],
+      "productos" : [
+        {
+          "id" : "11002321",
+          "nombre" : "horno_de_microondas_hkpro_hkhm23_110_1.1_pies_cubicos_plateado",
+          "categoria" : "linea_blanca",
+          "moneda" : "MXN",
+          "precio" : "1999.0",
+          "cantidad" : "1",
+          "subcategoria" : "electrodomesticos",
+          "subcategoriaSecundaria" : "microondas",
+          "marca" : "HKPRO",
+          "exportado" : "false",
+          "skuGrupo" : "1300612129",
+          "codigoPromocion" : "si_pagas_antes_pagas_menos",
+          "distribuidor" : "Elektra",
+          "idListaProductos" : "Más vendido en shopinbaz",
+          "posicionCreativo" : "1",
+          "nombreTienda" : "elektra",
+          "puntosCanjeados" : "998515.0"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "headers" : {
+    "x-sistema-operativo" : "iOS",
+    "x-version-aplicacion" : "6.9762.0354",
+    "x-modelo" : "iPhone",
+    "x-version-sistema-operativo" : "18.5",
+    "x-id-peticion" : "8D9EA1D5EEDC1A0F",
+    "x-idioma" : "es-MX",
+    "x-zona-horaria" : "GMT-6",
+    "x-estado-red" : "WiFi",
+    "x-id-emisor" : "12345",
+    "x-nombre-aplicacion" : "Banco Azteca",
+    "x-resolucion-pantalla" : "844.0x390.0"
+  },
+  "usuario" : {
+    "icu" : "ab1091b9b0954d7abc32ad9ea7def817",
+    "sicu" : "f21e61e0e71f4037b2844d83dbad1549",
+    "idExterno" : "58c90274-2492-48ed-b0b4-64be5546a79d"
+  },
+  "eventos" : [
+    {
+      "nombre" : "view_item_list",
+      "idClevertap" : "-v180b985c87834d1caa406b01317e3570",
+      "aliasClevertap" : "view_item_list",
+      "id" : "DED22C9E1A344DC78D286A049C1F3A2B",
+      "fechaHoraRegistro" : "2025-08-21T00:12:47Z",
+      "idAppsFlyer" : "1755730795133-1809858",
+      "registroPlataforma" : [
+        "clevertap"
+      ],
+      "parametros" : {
+        "flujo" : "dashboard",
+        "canal" : "shopinbaz",
+        "nombreLista" : "seguros_azteca",
+        "seccion" : "seguros_azteca",
+        "patrocinado" : "false",
+        "nombrePantalla" : "inicio_seguros_azteca"
+      },
+      "ubicacion" : {
+        "latitud" : 19.303800642871835,
+        "pais" : "Mexico",
+        "ciudad" : "Coyoacán",
+        "codigoPostal" : "04530",
+        "longitud" : -99.183360819904792,
+        "municipio" : "Insurgentes Cuicuilco"
+      },
+      "idSesion" : "41057174-16A5-4422-AAE0-F8DFD105EEC8",
+      "aliasAppsFlyer" : "NA"
+    }
+  ]
+}
