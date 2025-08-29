@@ -1,7 +1,5 @@
 package com.jumpstart.service;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -9,14 +7,12 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Map;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.jumpstart.config.AccederSecretGCP;
 import com.jumpstart.entity.enums.CamposJson;
 import com.jumpstart.service.payload.PayloadClaverTap;
@@ -103,20 +99,6 @@ public class CleverTapService {
 		}
 
 		return payloadsend;
-	}
-
-	public static void main(String[] args) throws Exception {
-//		InputStream is = new FileInputStream("hola-mundo.json");
-//		InputStream is = new FileInputStream("clever-no-p.json");
-		InputStream is = new FileInputStream("add_icu.json");
-		
-		
-		String jsonTxt = IOUtils.toString(is, "UTF-8");
-		CleverTapService obj = new CleverTapService(new PayloadClaverTap(new JsonUtilsEvent()), new JsonUtilsEvent());
-		JsonObject event = JsonParser.parseString(jsonTxt).getAsJsonObject();
-		obj.enviarEvento(event);
-
-		
 	}
 
 }

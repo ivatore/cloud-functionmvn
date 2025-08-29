@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+
+import org.jline.utils.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -126,13 +129,20 @@ public class PayloadClaverTap {
 		JsonObject evtData = new JsonObject();
 
 		// Campos parametrizados opcionales
-		Map<String, String> parametrosOpcionales = Map.of("montoTotal", MONTOTOTAL, "moneda", "moneda", "formaPago",
+		Map<String, String> parametrosOpcionales = Map.of(MONTOTOTAL, MONTOTOTAL, "moneda", "moneda", "formaPago",
 				"formaPago", "skuGrupo", "skuGrupo", "tipoLogeo", "tipoLogeo", "estatusTransaccion",
-				"estatusTransaccion", "nombreTienda", "nombreTienda", MONTOTOTAL, MONTOTOTAL, "tipoEnvio", "tipoEnvio");
+				"estatusTransaccion", "nombreTienda", "nombreTienda", "tipoEnvio", "tipoEnvio");
 
 		parametrosOpcionales.forEach((clave, ruta) -> {
-			String valor = jsonvalida.obtenerSiExiste(event, CamposJson.EVENTO, "0", "parametros", ruta).orElse(NA);
-			evtData.addProperty(clave, valor);
+			Optional<String> valor = jsonvalida.obtenerSiExiste(event, CamposJson.EVENTO, "0",
+					CamposJson.EVENTOPARAMETRO, ruta);
+			System.out.println("Primer Valor -> " + valor);
+			if (!valor.isPresent() || valor.isEmpty()) {
+				valor = jsonvalida.obtenerSiExiste(event, CamposJson.EVENTO, "0", CamposJson.EVENTOPRODUCTO,"0", ruta);
+			}
+			System.out.println("Segundo Valor -> " + valor);
+			if (valor.isPresent())
+				evtData.addProperty(clave, valor.get());
 		});
 
 		// Detalle

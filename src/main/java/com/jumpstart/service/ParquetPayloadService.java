@@ -25,7 +25,7 @@ public class ParquetPayloadService {
 		JsonNode root = mapper.readTree(json);
 		JsonNode dataList = root.get("d");
 
-		Schema schema = SchemaBuilder.record("ClaverEvent").fields().optionalString("evtName").optionalString("FBID")
+		Schema schema = SchemaBuilder.record("ClaverEvent").fields().optionalString("evtName").optionalString("identity")
 				.optionalString("type").optionalString("evtData").endRecord();
 
 		InMemoryOutputFile outputFile = new InMemoryOutputFile();
@@ -36,7 +36,7 @@ public class ParquetPayloadService {
 			for (JsonNode event : dataList) {
 				GenericRecord record = new GenericData.Record(schema);
 				record.put("evtName", getText(event, "evtName"));
-				record.put("FBID", getText(event, "FBID"));
+				record.put("identity", getText(event, "identity"));
 				record.put("type", getText(event, "type"));
 				JsonNode evtDataNode = event.get("evtData");
 				String evtDataJson = evtDataNode != null ? mapper.writeValueAsString(evtDataNode) : null;
@@ -52,7 +52,7 @@ public class ParquetPayloadService {
 
 		Schema schema = SchemaBuilder.record("AppsflyerEvent").fields().optionalString("eventTime")
 				.optionalString("customer_user_id").optionalString("appsflyer_id").optionalString("device_id")
-				.optionalString("platform").optionalString("eventCurrency").optionalString("eventName")
+				.optionalString("platform").optionalString("eventName")
 				.optionalString("eventValue").endRecord();
 
 		InMemoryOutputFile outputFile = new InMemoryOutputFile();
@@ -66,7 +66,7 @@ public class ParquetPayloadService {
 			record.put("appsflyer_id", getText(root, "appsflyer_id"));
 			record.put("device_id", getText(root, "device_id"));
 			record.put("platform", getText(root, "platform"));
-			record.put("eventCurrency", getText(root, "eventCurrency"));
+//			record.put("eventCurrency", getText(root, "eventCurrency"));
 			record.put("eventName", getText(root, "eventName"));
 			record.put("eventValue", getText(root, "eventValue"));
 
@@ -80,7 +80,7 @@ public class ParquetPayloadService {
 		JsonNode dataList = root.get("d");
 
 		Schema schema = SchemaBuilder.record("UsuarioProfile").fields().optionalString("type")
-				.optionalString("objectId").optionalString("idOfertaCredito").optionalString("Nombre")
+				.optionalString("identity").optionalString("idOfertaCredito").optionalString("Nombre")
 				.optionalString("segmento").optionalString("Correo").endRecord();
 
 		InMemoryOutputFile outputFile = new InMemoryOutputFile();
@@ -91,7 +91,7 @@ public class ParquetPayloadService {
 			for (JsonNode item : dataList) {
 				GenericRecord record = new GenericData.Record(schema);
 				record.put("type", getText(item, "type"));
-				record.put("objectId", getText(item, "objectId"));
+				record.put("identity", getText(item, "identity"));
 
 				JsonNode profileData = item.get("profileData");
 				if (profileData != null) {

@@ -45,7 +45,8 @@ public class AppsFlyerService {
 
 			HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
-			log.info("AppsFlyer response: {}", response.body());
+			log.info("AppsFlyer payload: {}", payload);
+//			log.info("AppsFlyer response: {}", response.body());
 			return payload;
 
 		} catch (Exception e) {

@@ -9,7 +9,7 @@ ENTRY_POINT=com.jumpstart.PubSubMessageHandler
 RUNTIME=java17
 TOPIC=tp-jumpstart-events-receiver-streaming
 MEMORY=2GB
-TIMEOUT=60s
+TIMEOUT=120s
 REGION=us-central1
 SERVICE_ACCOUNT=sa-jumpstart-events-streaming@gs-mx-sandboxanalitica-prod.iam.gserviceaccount.com
 
