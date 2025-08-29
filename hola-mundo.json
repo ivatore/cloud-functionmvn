@@ -94,7 +94,7 @@
       "fechaHoraRegistro" : "2025-08-20T17:28:29Z",
       "aliasClevertap" : "CreditoConsumo",
       "registroPlataforma" : [
-        "clevertap"
+        "clevertap","appsflyer"
       ],
       "productos" : [
         {
