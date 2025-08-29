@@ -51,6 +51,7 @@ public class AppsFlyerService {
 
 		} catch (Exception e) {
 			log.error("Error enviando evento a AppsFlyer {}", e.getMessage());
+			payload = payloadAppFlyer.construirPayloadAppsFlyer(event);
 			return payload;
 		}
 	}

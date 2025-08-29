@@ -14,7 +14,7 @@ REGION=us-central1
 SERVICE_ACCOUNT=sa-jumpstart-events-streaming@gs-mx-sandboxanalitica-prod.iam.gserviceaccount.com
 
 # === VARIABLES DE ENTORNO ===
-ENV_VARS="BUCKET_NAME=jumpstart_events_raw,SATELITES_STATUS=vertex-clevertap"
+ENV_VARS="BUCKET_NAME=jumpstart_events_raw,SATELITES_STATUS=vertex-clevertap-"
 
 # === DESPLIEGUE ===
 echo "Desplegando función $FUNCTION_NAME..."
