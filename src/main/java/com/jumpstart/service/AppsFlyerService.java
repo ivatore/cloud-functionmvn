@@ -21,7 +21,7 @@ public class AppsFlyerService {
 	private static final JsonObject config = AccederSecretGCP.getSateliteConfig("secret_jumpstart_config_satelites");
 
 	private static final String DEV_KEY = config.get("appsflyer-key").getAsString();
-	private static final String URL = "https://api3.appsflyer.com/inappevent/";
+	private static final String URL = "https://api2.appsflyer.com/inappevent/";
 
 	private final HttpClient httpClient = HttpClient.newHttpClient();
 	private final PayloadAppFlyer payloadAppFlyer;
@@ -46,7 +46,7 @@ public class AppsFlyerService {
 			HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
 
 			log.info("AppsFlyer payload: {}", payload);
-//			log.info("AppsFlyer response: {}", response.body());
+			log.info("AppsFlyer response: {}", response.body());
 			return payload;
 
 		} catch (Exception e) {

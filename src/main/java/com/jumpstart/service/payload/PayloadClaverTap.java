@@ -136,11 +136,9 @@ public class PayloadClaverTap {
 		parametrosOpcionales.forEach((clave, ruta) -> {
 			Optional<String> valor = jsonvalida.obtenerSiExiste(event, CamposJson.EVENTO, "0",
 					CamposJson.EVENTOPARAMETRO, ruta);
-			System.out.println("Primer Valor -> " + valor);
 			if (!valor.isPresent() || valor.isEmpty()) {
-				valor = jsonvalida.obtenerSiExiste(event, CamposJson.EVENTO, "0", CamposJson.EVENTOPRODUCTO,"0", ruta);
+				valor = jsonvalida.obtenerSiExiste(event, CamposJson.EVENTO, "0", CamposJson.EVENTOPRODUCTO, "0", ruta);
 			}
-			System.out.println("Segundo Valor -> " + valor);
 			if (valor.isPresent())
 				evtData.addProperty(clave, valor.get());
 		});
