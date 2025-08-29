@@ -196,7 +196,7 @@ public class EventoProcessorService {
 				}
 				if ("clevertap".equals(segmento)) {
 					bytes = parquetPayloadService.processClaverJsonToBytes(data);
-				} else if ("appflyer".equals(segmento)) {
+				} else if ("appflyer".equals(segmento)||"appsflyer".equals(segmento)) {
 					bytes = parquetPayloadService.processAppsflyerJsonToBytes(data);
 				}
 				break;
